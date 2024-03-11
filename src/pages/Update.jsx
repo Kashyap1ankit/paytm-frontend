@@ -11,6 +11,7 @@ import { useAuth } from "../auth";
 import { useEffect, useState } from "react";
 
 export default function Update() {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
   const {
     register,
@@ -45,15 +46,11 @@ export default function Update() {
 
   const onSubmit = async (data) => {
     try {
-      const result = await axios.put(
-        "https://paytm-backend-wacd.onrender.com/api/v1/user",
-        data,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
+      const result = await axios.put(`${BASE_URL}/api/v1/user`, data, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
 
       navigate("/dashboard");
     } catch (error) {

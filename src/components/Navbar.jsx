@@ -9,6 +9,7 @@ import Cross from "../assets/svg/cross.svg";
 import { useAuth } from "../auth";
 
 export default function NavBar() {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const user = useAuth();
   const navigate = useNavigate();
   const [clicked, setClicked] = useState(false);
@@ -19,14 +20,11 @@ export default function NavBar() {
 
   const handleClick = async () => {
     try {
-      const result = await axios.get(
-        "https://paytm-backend-wacd.onrender.com/api/v1/user/auth",
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
+      const result = await axios.get(`${BASE_URL}/api/v1/user/auth`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
 
       const firstName = await result.data.firstName;
       const lastName = await result.data.lastName;

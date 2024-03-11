@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../auth";
 
 export default function Signin() {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const {
     register,
     handleSubmit,
@@ -47,10 +48,7 @@ export default function Signin() {
 
   const onSubmit = async (data) => {
     try {
-      const result = await axios.post(
-        "https://paytm-backend-wacd.onrender.com/api/v1/user/signin",
-        data
-      );
+      const result = await axios.post(`${BASE_URL}/api/v1/user/signin`, data);
 
       const token = result.data.token;
       localStorage.setItem("token", `Bearer ${token}`);

@@ -10,6 +10,7 @@ import Lottie from "lottie-react";
 import Profile from "../assets/svg/profile.svg";
 
 export default function Dashboard() {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [users, setUser] = useState([]);
   const [balance, setBalance] = useState(0);
   const [load, setLoad] = useState(false);
@@ -38,14 +39,11 @@ export default function Dashboard() {
 
   useEffect(() => {
     const call = async () => {
-      const result = await axios.get(
-        "https://paytm-backend-wacd.onrender.com/api/v1/user/all",
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
+      const result = await axios.get(`${BASE_URL}/api/v1/user/all`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
 
       setUser(result.data.users);
     };
@@ -57,14 +55,11 @@ export default function Dashboard() {
 
   useEffect(() => {
     const call = async () => {
-      const result = await axios.get(
-        "https://paytm-backend-wacd.onrender.com/api/v1/account/balance",
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
+      const result = await axios.get(`${BASE_URL}/api/v1/account/balance`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
 
       setBalance(result.data.balance);
     };
@@ -83,7 +78,7 @@ export default function Dashboard() {
     timer = setTimeout(async () => {
       try {
         const result = await axios.get(
-          `https://paytm-backend-wacd.onrender.com/api/v1/user/bulk?filter=${e.target.value}`,
+          `${BASE_URL}/api/v1/user/bulk?filter=${e.target.value}`,
           {
             headers: {
               Authorization: localStorage.getItem("token"),

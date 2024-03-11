@@ -14,6 +14,7 @@ import PayDone from "../payment.json";
 import { useAuth } from "../auth";
 
 export default function Send() {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [searchParams, setSearchParams] = useSearchParams();
   const name = searchParams.get("name");
   const id = searchParams.get("id");
@@ -44,7 +45,7 @@ export default function Send() {
   const onSubmit = async (data) => {
     try {
       const result = await axios.post(
-        "https://paytm-backend-wacd.onrender.com/api/v1/account/transfer",
+        `${BASE_URL}/api/v1/account/transfer`,
         {
           amount: data.amount,
           to: id,
