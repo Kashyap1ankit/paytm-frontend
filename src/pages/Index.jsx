@@ -41,7 +41,7 @@ export default function Index() {
             }}
           >
             <Title
-              className="text-white font-Inter xsm:text-2xl md:text-3xl  lg:text-4xl xl:text-5xl xl:mb-4  tracking-wide font-extrabold drop-shadow-2xl"
+              className="text-white font-Noto xsm:text-2xl md:text-3xl  lg:text-4xl xl:text-5xl xl:mb-4  tracking-wide font-extrabold drop-shadow-2xl"
               title={"Paytm"}
             />
           </motion.div>
@@ -51,7 +51,7 @@ export default function Index() {
             }}
           >
             <Title
-              className="text-white font-Inter xsm:text-2xl md:text-3xl  lg:text-4xl xl:text-5xl xl:mb-4  tracking-wide font-extrabold drop-shadow-2xl"
+              className="text-white font-Noto xsm:text-2xl md:text-3xl  lg:text-4xl xl:text-5xl xl:mb-4  tracking-wide font-extrabold drop-shadow-2xl"
               title={"India's Most Trusted"}
             />
           </motion.div>
@@ -62,14 +62,14 @@ export default function Index() {
           >
             {" "}
             <Title
-              className="text-white font-Inter xsm:text-2xl md:text-3xl  lg:text-4xl xl:text-5xl xl:mb-4  tracking-wide font-extrabold drop-shadow-2xl"
+              className="text-white font-Noto xsm:text-2xl md:text-3xl  lg:text-4xl xl:text-5xl xl:mb-4  tracking-wide font-extrabold drop-shadow-2xl"
               title={"Payments App"}
             />
           </motion.div>
         </div>
       </div>
       <Button
-        className="bg-black text-center text-white rounded-full cursor-pointer font-Mingzant mx-auto xsm:max-w-fit xsm:px-4 xsm:py-1 xsm:mt-12 xl:px-6 xl:py-2 xl:mx-0 md:mx-12 xl:mt-0 "
+        className="bg-button text-center text-white rounded-md cursor-pointer font-Inter mx-auto xsm:max-w-fit xsm:px-4 xsm:py-1 xsm:mt-12 xl:px-6 xl:py-2 xl:mx-0 md:mx-12 xl:mt-0 "
         onClick={handleClick}
         title={"Get Started"}
       />

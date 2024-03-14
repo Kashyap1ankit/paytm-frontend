@@ -1,20 +1,20 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../components/Navbar";
 import axios from "axios";
 import Title from "../components/Title";
-import Button from "../components/Button";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useAuth } from "../auth";
 import Loading from "../loading.json";
 import Lottie from "lottie-react";
-import Profile from "../assets/svg/profile.svg";
+import Transfer from "../assets/svg/transfer.svg";
+import Transaction from "../assets/svg/transaction.svg";
+import UpdateProfile from "../assets/svg/update.svg";
 
 export default function Dashboard() {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const [users, setUser] = useState([]);
   const [balance, setBalance] = useState(0);
   const [load, setLoad] = useState(false);
-  const [searchLoad, setSearchLoad] = useState(false);
   const navigate = useNavigate();
 
   const user = useAuth();
@@ -35,22 +35,6 @@ export default function Dashboard() {
     }
   }, [navigate, user.loggedIn, user.loading]);
 
-  //Get all the users
-
-  useEffect(() => {
-    const call = async () => {
-      const result = await axios.get(`${BASE_URL}/api/v1/user/all`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
-
-      setUser(result.data.users);
-    };
-
-    call();
-  }, []);
-
   //Get the user balance
 
   useEffect(() => {
@@ -67,36 +51,6 @@ export default function Dashboard() {
     call();
   }, []);
 
-  //Search user
-  let timer;
-  const debounce = (e) => {
-    setSearchLoad(true);
-    if (timer) clearTimeout(timer);
-    if (e.target.value === "") {
-      setUser((users) => users);
-    }
-    timer = setTimeout(async () => {
-      try {
-        const result = await axios.get(
-          `${BASE_URL}/api/v1/user/bulk?filter=${e.target.value}`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        );
-
-        setUser(result.data.allUsers);
-      } catch (error) {
-        if (error.response.status === 404) {
-          setUser(null);
-        }
-      } finally {
-        setSearchLoad(false);
-      }
-    }, 1500);
-  };
-
   return (
     <div>
       <div>
@@ -111,56 +65,91 @@ export default function Dashboard() {
         />
       ) : (
         <div>
-          <div className="xsm:px-4 xsm:py-2 xsm:mx-auto xl:mx-0 mt-28  xl:px-8 xl:py-4 bg-white w-fit rounded-md font-Inter">
-            <Title title={`Current Balance: ₹${balance} `} />
-          </div>
-          <div>
-            <form>
-              <input
-                placeholder="Search for user"
-                type="text"
-                name="value"
-                id=""
-                onChange={debounce}
-                className="xsm:mt-20 xsm:w-full md:w-3/4 md:mx-4 lg:w-1/2 xl:mt-28 xl:mx-0 md:rounded-md  p-2 outline-none"
-              />
-            </form>
-          </div>
+          {/* Balance section card  */}
+          <motion.div
+            animate={{
+              scale: [1.2, 1],
+            }}
+            className="xsm:px-4 xsm:py-2 xsm:mx-auto xl:mx-0 mt-36  xl:pr-24 xl:py-6 bg-white w-fit rounded-md shadow-xl font-Liber"
+          >
+            <Title className={"xl:text-sm mb-2 text-gray"} title={"INR"} />
+            <Title
+              className={"xl:text-xl text-darkGray"}
+              title={`Current Balance`}
+            />
+            <Title
+              className={"xl:text-3xl font-Mingzant mt-2"}
+              title={`₹${balance} `}
+            />
+          </motion.div>
 
-          <div className="mt-12">
-            {searchLoad ? (
-              <Lottie
-                className="size-24 "
-                animationData={Loading}
-                loop={true}
-              />
-            ) : null}
+          {/* Features section  */}
 
-            <div className="bg-white p-2 rounded-md xl:w-1/2 xsm:m-4 xl:m-0">
-              {users &&
-                users.map((e) => {
-                  return (
-                    <div className="mb-4 md:flex md:justify-bewteen xsm:justify-around border-b-2 p-2 border-gray">
-                      <div className="flex justify-start items-center xl:w-2/3 xsm:w-full">
-                        <img src={Profile} className="size-8 mr-0 ml-0 " />
-                        <Title
-                          className="bg-white mr-2 p-2"
-                          title={`${e.firstName} ${e.lastName} (@${e.username})`}
-                        />
-                      </div>
-                      <div className="  md:w-1/3 xsm:mt-4 xl:mt-0">
-                        <Button
-                          onClick={() => {
-                            navigate(`/send?id=${e._id}&name=${e.firstName}`);
-                          }}
-                          className="bg-black xsm:p-2 xsm:text-sm md:w-fit md:w-fit p-3 text-center text-white rounded-md  "
-                          title={"Send Money"}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
+          <Title
+            className={"mt-24 mb-0 xl:text-4xl text-white font-Lexend"}
+            title={"SERVICES"}
+          />
+
+          <div className="lg:flex lg:justify-start mt-0 lg:w-2/3">
+            <motion.div
+              onClick={() => {
+                navigate("/users");
+              }}
+              className="cursor-pointer mr-16"
+              animate={{
+                x: [-500, 0],
+              }}
+            >
+              <img
+                className="xl:size-20 xl:mt-20 border-2 rounded-full p-2 bg-white"
+                src={Transfer}
+                alt=""
+              />
+              <Title
+                title={"Send Money"}
+                className={"text-white text-center xl:mt-4 font-Lexend"}
+              />
+            </motion.div>
+
+            <motion.div
+              onClick={() => {
+                navigate("/transcation");
+              }}
+              className="cursor-pointer mr-16"
+              animate={{
+                x: [500, 0],
+              }}
+            >
+              <img
+                className="xl:size-20 xl:mt-20 border-2 rounded-full p-2 bg-white"
+                src={Transaction}
+                alt=""
+              />
+              <Title
+                title={"Transcations"}
+                className={"text-white text-center xl:mt-4 font-Lexend"}
+              />
+            </motion.div>
+
+            <motion.div
+              onClick={() => {
+                navigate("/update");
+              }}
+              className="cursor-pointer mr-16"
+              animate={{
+                x: [500, 0],
+              }}
+            >
+              <img
+                className="xl:size-20 xl:mt-20 border-2 rounded-full p-2 bg-white"
+                src={UpdateProfile}
+                alt=""
+              />
+              <Title
+                title={"Profile"}
+                className={"text-white text-center xl:mt-4 font-Lexend"}
+              />
+            </motion.div>
           </div>
         </div>
       )}
