@@ -7,13 +7,33 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../loading.json";
 import Lottie from "lottie-react";
 
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+
 export default function AllUser() {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const [totalUsers, setTotalUsers] = useState([]);
   const [users, setUser] = useState([]);
   const [searchLoad, setSearchLoad] = useState(false);
   const navigate = useNavigate();
 
-  //Get all the users
+  //Pagination
+
+  const [curr, setCurrPage] = useState(1);
+  const recordPerPage = 5;
+  const lastIndex = curr * recordPerPage;
+  const firstIndex = lastIndex - recordPerPage;
+  const [numberOfPages, setNumberPages] = useState(
+    Math.ceil(totalUsers.length / recordPerPage)
+  );
+
+  //nothing in the
+
+  const [nothig, setNothing] = useState(false);
+
+  useEffect(() => {
+    setNumberPages(Math.ceil(totalUsers.length / recordPerPage));
+  }, [totalUsers, users]);
 
   useEffect(() => {
     const call = async () => {
@@ -23,11 +43,17 @@ export default function AllUser() {
         },
       });
 
-      setUser(result.data.users);
+      //All users from database
+      setTotalUsers(result.data.users);
+
+      //Filtered users for pagintation
+
+      const data = result.data.users.slice(firstIndex, lastIndex);
+      setUser(data);
     };
 
     call();
-  }, []);
+  }, [curr, nothig]);
 
   //Search user functionality
 
@@ -37,7 +63,10 @@ export default function AllUser() {
     setSearchLoad(true);
     if (timer) clearTimeout(timer);
     if (e.target.value === "") {
-      setUser((users) => users);
+      setNothing(true);
+      setTimeout(() => {
+        setNothing(false);
+      }, 2000);
     }
     timer = setTimeout(async () => {
       try {
@@ -49,10 +78,11 @@ export default function AllUser() {
             },
           }
         );
-
+        setTotalUsers([]);
         setUser(result.data.allUsers);
       } catch (error) {
         if (error.response.status === 404) {
+          setTotalUsers([]);
           setUser(null);
         }
       } finally {
@@ -64,7 +94,7 @@ export default function AllUser() {
   return (
     <div>
       {/* Search Input form  */}
-      <div>
+      <div className="xsm:mt-4 xsm:w-full  xl:mt-12 text-center  ">
         <form>
           <input
             placeholder="Search for user"
@@ -72,7 +102,7 @@ export default function AllUser() {
             name="value"
             id=""
             onChange={debounce}
-            className="xsm:mt-20 xsm:w-full md:w-3/4 md:mx-4 lg:w-1/2 xl:mt-28 xl:mx-auto md:rounded-full p-2 outline-none"
+            className="xsm:w-full md:rounded-full md:w-1/2 xl:mx-auto outline-none p-2"
           />
         </form>
       </div>
@@ -87,7 +117,7 @@ export default function AllUser() {
 
       {/* All user display */}
 
-      <div className="overflow-x-auto max-h-fit bg-white p-2 rounded-md xl:w-1/2 xsm:m-4 xl:m-0 xl:max-h-24">
+      <div className="xsm:overflow-y-scroll md:overflow-y-auto xsm:max-h-96 md:max-h-fit bg-white p-2 rounded-md xl:w-1/3 xsm:m-4 xl:m-auto ">
         {users &&
           users.map((e) => {
             return (
@@ -111,6 +141,20 @@ export default function AllUser() {
               </div>
             );
           })}
+      </div>
+
+      {/* Pagination  */}
+
+      <div className="w-fit  xl:mt-20">
+        <Stack spacing={2}>
+          <Pagination
+            count={numberOfPages}
+            variant="outlined"
+            onChange={(e, value) => {
+              setCurrPage(value);
+            }}
+          />
+        </Stack>
       </div>
     </div>
   );
