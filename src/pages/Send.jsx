@@ -12,13 +12,19 @@ import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import PayDone from "../payment.json";
 import { useAuth } from "../auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { sendMoneySchema } from "../schema";
 
 export default function Send() {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [searchParams, setSearchParams] = useSearchParams();
   const name = searchParams.get("name");
   const id = searchParams.get("id");
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
 
   const [success, setSuccess] = useState(false);
@@ -44,6 +50,8 @@ export default function Send() {
 
   const onSubmit = async (data) => {
     try {
+      if (typeof amount !== "number") throw new Error();
+
       const result = await axios.post(
         `${BASE_URL}/api/v1/account/transfer`,
         {
@@ -68,13 +76,15 @@ export default function Send() {
     } catch (error) {
       setServerError({
         status: true,
-        message: error.response.data.message,
+        message: error.response?.data.message
+          ? error.response.data.message
+          : "Please Enter Number",
       });
 
       setTimeout(() => {
         setServerError({
           status: false,
-          message: error.response.data.message,
+          message: "",
         });
       }, 3000);
     }
@@ -130,6 +140,9 @@ export default function Send() {
                   register={register}
                   name="amount"
                 />
+                <p className="text-red xsm:text-sm sm:text-md">
+                  {errors.amount?.message}
+                </p>
                 <Button
                   className="bg-green text-center p-2 px-4 mt-4 font-Inter text-md text-white rounded-md"
                   title={"Send Money"}

@@ -27,10 +27,15 @@ const userSignupSchema = zod.object({
     .min(6, { message: "Cannot be less than 6 letters" })
     .max(10, { message: "Cannot be greater than 10 letters" }),
 });
+
+//Signin schema
+
 const userSigninSchema = zod.object({
   username: zod.string(),
   password: zod.string().min(6).max(10),
 });
+
+//Updation schema
 
 const userUpdateSchema = zod.object({
   firstName: zod
@@ -41,4 +46,14 @@ const userUpdateSchema = zod.object({
   password: zod.string().min(6).max(10),
 });
 
-export { userSignupSchema, userSigninSchema, userUpdateSchema };
+//Send money schema
+
+const sendMoneySchema = zod.object({
+  amount: zod.number().min(1),
+});
+export {
+  userSignupSchema,
+  userSigninSchema,
+  userUpdateSchema,
+  sendMoneySchema,
+};

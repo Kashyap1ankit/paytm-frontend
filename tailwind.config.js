@@ -24,20 +24,26 @@ export default {
     extend: {},
 
     colors: {
-      primaryBackground: "#88BDBC",
+      primaryBackground: "black",
       white: "#ffffff",
       black: "black",
       gray: "#d1d5db",
+      darkGray: "#64748b",
       "dark-gray": "#71717a",
       blue: "#2563eb",
       red: "red",
       green: "#22c55e",
+      darkGreen: "#22c55e",
       emerald: "#022c22",
+      button: "rgb(14 165 233)",
     },
 
     fontFamily: {
       Inter: ["Andika", "sans-serif"],
       Mingzant: ["Mingzat", "sans-serif"],
+      Noto: ["Noto Serif", "serif"],
+      Liber: ["Libre Baskerville", "serif"],
+      Lexend: ["Lexend", "serif"],
     },
   },
   plugins: [],

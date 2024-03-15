@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 
 export default function Input({
+  type,
   label,
   placeholder,
   register,
@@ -13,6 +14,7 @@ export default function Input({
         <label htmlFor={name}>{label}</label>
       </div>
       <input
+        type={type ? type : "text"}
         defaultValue={defaultValue}
         id={name}
         placeholder={placeholder}

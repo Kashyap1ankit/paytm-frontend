@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Index from "./pages/Index";
 import Update from "./pages/Update";
 import Error from "./pages/Error";
+import AllUser from "./pages/Users";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/send" element={<Send />} />
           <Route path="/update" element={<Update />} />
+          <Route path="/users" element={<AllUser />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
