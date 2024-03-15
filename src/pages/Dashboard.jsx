@@ -52,7 +52,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <div>
         <NavBar />
       </div>
@@ -70,7 +70,7 @@ export default function Dashboard() {
             animate={{
               scale: [1.2, 1],
             }}
-            className="xsm:px-4 xsm:py-2 xsm:mx-auto xl:mx-0 mt-36  xl:pr-24 xl:py-6 bg-white w-fit rounded-md shadow-xl font-Liber"
+            className="xsm:px-4 xsm:py-2 xsm:w-9/12 xsm:mx-auto md:mx-8 md:w-fit md:pr-24 md:py-6 xl:mx-0  bg-white rounded-md shadow-xl font-Liber mt-36"
           >
             <Title className={"xl:text-sm mb-2 text-gray"} title={"INR"} />
             <Title
@@ -78,7 +78,7 @@ export default function Dashboard() {
               title={`Current Balance`}
             />
             <Title
-              className={"xl:text-3xl font-Mingzant mt-2"}
+              className={"xsm:text-2xl xl:text-3xl font-Mingzant mt-2"}
               title={`₹${balance} `}
             />
           </motion.div>
@@ -86,28 +86,30 @@ export default function Dashboard() {
           {/* Features section  */}
 
           <Title
-            className={"mt-24 mb-0 xl:text-4xl text-white font-Lexend"}
+            className={
+              "xsm:mb-8 xsm:text-2xl xsm:mx-4 xl:mx-0 xl:mb-0 xl:text-4xl   text-white font-Lexend mt-24 "
+            }
             title={"SERVICES"}
           />
 
-          <div className="lg:flex lg:justify-start mt-0 lg:w-2/3">
+          <div className="xsm:grid xsm:grid-cols-2 xsm:gap-8 xsm:w-full xsm:mx-4 md:grid md:grid-cols-3 md:gap-8 xl:mx-0 lg:flex lg:justify-start mt-0 lg:w-2/3">
             <motion.div
               onClick={() => {
                 navigate("/users");
               }}
-              className="cursor-pointer mr-16"
+              className="cursor-pointer xl:mr-16 xl:text-center "
               animate={{
                 x: [-500, 0],
               }}
             >
               <img
-                className="xl:size-20 xl:mt-20 border-2 rounded-full p-2 bg-white"
+                className="xsm:size-12 xl:size-20 xl:mt-20 border-2 rounded-full p-2 bg-white"
                 src={Transfer}
                 alt=""
               />
               <Title
                 title={"Send Money"}
-                className={"text-white text-center xl:mt-4 font-Lexend"}
+                className={"text-white xl:text-center xl:mt-4 font-Lexend"}
               />
             </motion.div>
 
@@ -115,19 +117,19 @@ export default function Dashboard() {
               onClick={() => {
                 navigate("/transcation");
               }}
-              className="cursor-pointer mr-16"
+              className="cursor-pointer xl:mr-16"
               animate={{
                 x: [500, 0],
               }}
             >
               <img
-                className="xl:size-20 xl:mt-20 border-2 rounded-full p-2 bg-white"
+                className="xsm:size-12 xl:size-20 xl:mt-20 border-2 rounded-full p-2 bg-white"
                 src={Transaction}
                 alt=""
               />
               <Title
                 title={"Transcations"}
-                className={"text-white text-center xl:mt-4 font-Lexend"}
+                className={"text-white xl:text-center xl:mt-4 font-Lexend"}
               />
             </motion.div>
 
@@ -135,19 +137,19 @@ export default function Dashboard() {
               onClick={() => {
                 navigate("/update");
               }}
-              className="cursor-pointer mr-16"
+              className="cursor-pointer xl:mr-16"
               animate={{
                 x: [500, 0],
               }}
             >
               <img
-                className="xl:size-20 xl:mt-20 border-2 rounded-full p-2 bg-white"
+                className="xsm:size-12 xl:size-20 xl:mt-20 border-2 rounded-full p-2 bg-white"
                 src={UpdateProfile}
                 alt=""
               />
               <Title
                 title={"Profile"}
-                className={"text-white text-center xl:mt-4 font-Lexend"}
+                className={"text-white xl:text-center xl:mt-4 font-Lexend"}
               />
             </motion.div>
           </div>
