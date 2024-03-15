@@ -46,7 +46,7 @@ export default function NavBar() {
           className="md:w-1/2  xsm:w-1/2 sm:w-1/3"
         >
           <img
-            className="xl:w-1/6 md:w-1/3 xsm:w-1/8 xsm:p-0"
+            className="xl:w-1/6 md:w-1/3 xsm:w-1/8 xsm:p-0 xsm:w-1/2"
             src={Logo}
             alt="No image"
           />
