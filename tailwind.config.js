@@ -32,6 +32,7 @@ export default {
       "dark-gray": "#71717a",
       blue: "#2563eb",
       red: "red",
+      danger: "#b91c1c",
       green: "#22c55e",
       darkGreen: "#22c55e",
       emerald: "#022c22",

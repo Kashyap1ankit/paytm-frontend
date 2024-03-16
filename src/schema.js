@@ -46,14 +46,4 @@ const userUpdateSchema = zod.object({
   password: zod.string().min(6).max(10),
 });
 
-//Send money schema
-
-const sendMoneySchema = zod.object({
-  amount: zod.number().min(1),
-});
-export {
-  userSignupSchema,
-  userSigninSchema,
-  userUpdateSchema,
-  sendMoneySchema,
-};
+export { userSignupSchema, userSigninSchema, userUpdateSchema };

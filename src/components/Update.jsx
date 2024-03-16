@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { useAuth } from "../auth";
 import { useEffect, useState } from "react";
 
-export default function Update() {
+export default function UpdateTab() {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
   const {
@@ -106,6 +106,15 @@ export default function Update() {
             title="Update"
           />
         </form>
+        <div className="flex justify-center text-center w-full mt-4 ">
+          <Title
+            onClick={() => {
+              navigate("/dashboard");
+            }}
+            className="text-dark-gray cursor-pointer hover:text-blue font-Inter"
+            title="Goto Dashboard "
+          />
+        </div>
       </div>
     </div>
   );

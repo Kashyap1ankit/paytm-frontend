@@ -28,7 +28,7 @@ export default function NavBar() {
 
       const firstName = await result.data.firstName;
       const lastName = await result.data.lastName;
-      navigate(`/update?firstName=${firstName}&lastName=${lastName}`);
+      navigate(`/profile?firstName=${firstName}&lastName=${lastName}`);
     } catch (error) {
       console.log(error);
     }
