@@ -51,6 +51,24 @@ export default function Dashboard() {
     call();
   }, []);
 
+  //Handle User profile click
+
+  const handleClick = async () => {
+    try {
+      const result = await axios.get(`${BASE_URL}/api/v1/user/auth`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
+      const firstName = await result.data.firstName;
+      const lastName = await result.data.lastName;
+      navigate(`/profile?firstName=${firstName}&lastName=${lastName}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="overflow-x-hidden">
       <div>
@@ -134,9 +152,7 @@ export default function Dashboard() {
             </motion.div>
 
             <motion.div
-              onClick={() => {
-                navigate("/update");
-              }}
+              onClick={handleClick}
               className="cursor-pointer xl:mr-16"
               animate={{
                 x: [500, 0],

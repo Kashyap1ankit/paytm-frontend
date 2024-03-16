@@ -12,8 +12,6 @@ import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import PayDone from "../payment.json";
 import { useAuth } from "../auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { sendMoneySchema } from "../schema";
 
 export default function Send() {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -50,7 +48,10 @@ export default function Send() {
 
   const onSubmit = async (data) => {
     try {
-      if (typeof amount !== "number") throw new Error();
+      //Parsing for number
+      if (!parseInt(data.amount)) {
+        throw new Error();
+      }
 
       const result = await axios.post(
         `${BASE_URL}/api/v1/account/transfer`,
@@ -148,6 +149,16 @@ export default function Send() {
                   title={"Send Money"}
                 />
               </form>
+
+              <div className="flex justify-center text-center w-full mt-4 ">
+                <Title
+                  onClick={() => {
+                    navigate("/users");
+                  }}
+                  className="text-dark-gray cursor-pointer hover:text-blue font-Inter"
+                  title="BACK "
+                />
+              </div>
             </div>
           </div>
         </div>
