@@ -3,11 +3,12 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Dashboard from "./pages/Dashboard";
 import Send from "./pages/Send";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Profile from "./pages/Profile";
-import Error from "./pages/Error";
 import AllUser from "./pages/Users";
+import Transaction from "./pages/Transaction";
+import Error from "./pages/Error";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/send" element={<Send />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/users" element={<AllUser />} />
+          <Route path="/transaction" element={<Transaction />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>

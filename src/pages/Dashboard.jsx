@@ -133,7 +133,7 @@ export default function Dashboard() {
 
             <motion.div
               onClick={() => {
-                navigate("/transcation");
+                navigate("/transaction");
               }}
               className="cursor-pointer xl:mr-16"
               animate={{
